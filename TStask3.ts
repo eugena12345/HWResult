@@ -8,7 +8,7 @@ interface Post {
   body: string;
 }
 
-const getData = async (url: string): Promise<Post[]> => {
+const getData = async <T>(url: string): Promise<T> => {
   const response = await fetch(url);
   if (response.ok) {
     return response.json();
@@ -16,7 +16,7 @@ const getData = async (url: string): Promise<Post[]> => {
   throw new Error("Something went wrong");
 };
 
-getData(COMMENTS_URL)
+getData<Post[]>(COMMENTS_URL)
   .then((data) => {
     console.log(data);
     data.forEach((post) => {
