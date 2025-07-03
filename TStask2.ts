@@ -1,4 +1,17 @@
-const posts = [
+interface Article {
+  id: string;
+  title: string;
+  body: string;
+}
+
+interface NormalizedData<T> {
+  byId: {
+    [key: string]: T; 
+  };
+  allIds: string[];
+}
+
+const posts: Article[] = [
   {
     id: "62e69d5a5458aac0ed320b35",
     title: "id labore ex et quam laborum",
@@ -36,21 +49,8 @@ const posts = [
   },
 ];
 
-interface Article {
-  id: string;
-  title: string;
-  body: string;
-}
-
-interface NormalizeData {
-  byId: {
-    [key: string]: Article;
-  };
-  allIds: string[];
-}
-
-const normalizeData = (unnormalizedData: Article[]): NormalizeData => {
-  const normalizedData: NormalizeData = {
+const normalizeData = <T extends { id: string }>(unnormalizedData: T[]): NormalizedData<T> => {
+  const normalizedData: NormalizedData<T> = {
     byId: {},
     allIds: [],
   };
